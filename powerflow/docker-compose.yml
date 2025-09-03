@@ -1,110 +1,38 @@
 version: '3.8'
 
 services:
-  # PostgreSQL Database
-  postgres:
-    image: postgres:15-alpine
-    container_name: powerflow-db
+  # NestJS API Gateway
+  api:
+    build:
+      context: ./apps/api
+      dockerfile: Dockerfile
+    container_name: powerflow-api
+    ports:
+      - "4000:4000"
     environment:
-      POSTGRES_USER: powerflow
-      POSTGRES_PASSWORD: powerflow123
-      POSTGRES_DB: powerflow
-    ports:
-      - "5432:5432"
-    volumes:
-      - postgres_data:/var/lib/postgresql/data
+      - NODE_ENV=production
+      - PORT=4000
     networks:
       - powerflow-network
+    restart: unless-stopped
 
-  # Redis for caching and pub/sub
-  redis:
-    image: redis:7-alpine
-    container_name: powerflow-redis
-    ports:
-      - "6379:6379"
-    networks:
-      - powerflow-network
-
-  # Next.js Frontend (Development)
+  # Next.js Frontend
   web:
     build:
-      context: .
-      dockerfile: ./apps/web/Dockerfile.dev
+      context: ./apps/web
+      dockerfile: Dockerfile
     container_name: powerflow-web
     ports:
       - "3000:3000"
-    volumes:
-      - ./apps/web:/app/apps/web
-      - ./packages:/app/packages
-      - /app/node_modules
-      - /app/apps/web/node_modules
     environment:
-      - NODE_ENV=development
+      - NODE_ENV=production
       - NEXT_PUBLIC_API_URL=http://localhost:4000
     depends_on:
       - api
     networks:
       - powerflow-network
-
-  # NestJS API Gateway
-  api:
-    build:
-      context: .
-      dockerfile: ./apps/api/Dockerfile.dev
-    container_name: powerflow-api
-    ports:
-      - "4000:4000"
-    volumes:
-      - ./apps/api:/app/apps/api
-      - ./packages:/app/packages
-      - /app/node_modules
-      - /app/apps/api/node_modules
-    environment:
-      - NODE_ENV=development
-      - DATABASE_URL=postgresql://powerflow:powerflow123@postgres:5432/powerflow
-      - REDIS_URL=redis://redis:6379
-      - JWT_SECRET=your-secret-key-change-in-production
-    depends_on:
-      - postgres
-      - redis
-    networks:
-      - powerflow-network
-
-  # Python Simulation Service
-  sim-service:
-    build:
-      context: .
-      dockerfile: ./services/sim/Dockerfile.dev
-    container_name: powerflow-sim
-    ports:
-      - "5001:5001"
-    volumes:
-      - ./services/sim:/app
-    environment:
-      - PYTHONUNBUFFERED=1
-      - API_URL=http://api:4000
-    networks:
-      - powerflow-network
-
-  # Python ML Service
-  ml-service:
-    build:
-      context: .
-      dockerfile: ./services/ml/Dockerfile.dev
-    container_name: powerflow-ml
-    ports:
-      - "5002:5002"
-    volumes:
-      - ./services/ml:/app
-    environment:
-      - PYTHONUNBUFFERED=1
-      - API_URL=http://api:4000
-    networks:
-      - powerflow-network
+    restart: unless-stopped
 
 networks:
   powerflow-network:
     driver: bridge
-
-volumes:
-  postgres_data:
