@@ -140,7 +140,7 @@ export default function SettingsPage() {
                 </div>
                 <Switch
                   checked={notifications.email}
-                  onCheckedChange={(checked) => setNotifications({...notifications, email: checked})}
+                  onCheckedChange={(checked: boolean) => setNotifications({...notifications, email: checked})}
                 />
               </div>
               <div className="flex items-center justify-between">
@@ -150,7 +150,7 @@ export default function SettingsPage() {
                 </div>
                 <Switch
                   checked={notifications.push}
-                  onCheckedChange={(checked) => setNotifications({...notifications, push: checked})}
+                  onCheckedChange={(checked: boolean) => setNotifications({...notifications, push: checked})}
                 />
               </div>
               <div className="flex items-center justify-between">
@@ -160,7 +160,7 @@ export default function SettingsPage() {
                 </div>
                 <Switch
                   checked={notifications.system}
-                  onCheckedChange={(checked) => setNotifications({...notifications, system: checked})}
+                  onCheckedChange={(checked: boolean) => setNotifications({...notifications, system: checked})}
                 />
               </div>
               <div className="flex items-center justify-between">
@@ -170,7 +170,7 @@ export default function SettingsPage() {
                 </div>
                 <Switch
                   checked={notifications.maintenance}
-                  onCheckedChange={(checked) => setNotifications({...notifications, maintenance: checked})}
+                  onCheckedChange={(checked: boolean) => setNotifications({...notifications, maintenance: checked})}
                 />
               </div>
             </CardContent>
