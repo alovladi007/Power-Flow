@@ -52,3 +52,8 @@ externalPort = 8000
 [[ports]]
 localPort = 5000
 externalPort = 80
+
+[deployment]
+deploymentTarget = "autoscale"
+run = ["cd powerflow && pnpm start"]
+build = ["cd powerflow && pnpm build"]

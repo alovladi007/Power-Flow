@@ -10,6 +10,9 @@
   "scripts": {
     "dev": "turbo run dev",
     "build": "turbo run build",
+    "start": "concurrently \"pnpm start:api\" \"pnpm start:web\"",
+    "start:api": "pnpm --filter @powerflow/api start",
+    "start:web": "pnpm --filter @powerflow/web start",
     "test": "turbo run test",
     "lint": "turbo run lint",
     "db:migrate": "pnpm --filter @powerflow/database migrate",
