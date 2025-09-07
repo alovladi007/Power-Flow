@@ -38,7 +38,7 @@ async function bootstrap() {
   // Set global prefix
   app.setGlobalPrefix('api');
 
-  const port = process.env.PORT || 4000;
+  const port = process.env.PORT || 8000;
   await app.listen(port);
   console.log(`🚀 API Gateway running on http://localhost:${port}`);
   console.log(`📚 API Documentation available at http://localhost:${port}/api/docs`);

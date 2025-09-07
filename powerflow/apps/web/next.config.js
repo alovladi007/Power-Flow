@@ -2,11 +2,10 @@
 const nextConfig = {
   reactStrictMode: true,
   transpilePackages: ['@powerflow/shared', '@powerflow/ui'],
-  allowedHosts: true,
   async rewrites() {
     const backendUrl = process.env.REPLIT_DEV_DOMAIN 
-      ? `https://${process.env.REPLIT_DEV_DOMAIN}:4000`
-      : 'http://localhost:4000';
+      ? `https://${process.env.REPLIT_DEV_DOMAIN}:8000`
+      : 'http://localhost:8000';
     
     return [
       {
