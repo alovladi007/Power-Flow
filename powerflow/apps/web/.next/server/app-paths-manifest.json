@@ -3,6 +3,5 @@
   "/simulations/page": "app/simulations/page.js",
   "/hardware/page": "app/hardware/page.js",
   "/analytics/page": "app/analytics/page.js",
-  "/settings/page": "app/settings/page.js",
-  "/sst/page": "app/sst/page.js"
+  "/settings/page": "app/settings/page.js"
 }

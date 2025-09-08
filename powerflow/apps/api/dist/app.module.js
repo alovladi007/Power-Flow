@@ -13,6 +13,7 @@ const simulation_module_1 = require("./simulation/simulation.module");
 const hardware_module_1 = require("./hardware/hardware.module");
 const websocket_module_1 = require("./websocket/websocket.module");
 const sst_module_1 = require("./sst/sst.module");
+const billing_module_1 = require("./billing/billing.module");
 let AppModule = class AppModule {
 };
 exports.AppModule = AppModule;
@@ -26,6 +27,7 @@ exports.AppModule = AppModule = __decorate([
             hardware_module_1.HardwareModule,
             websocket_module_1.WebSocketModule,
             sst_module_1.SstModule,
+            billing_module_1.BillingModule,
         ],
     })
 ], AppModule);

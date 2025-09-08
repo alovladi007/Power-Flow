@@ -63,6 +63,14 @@ export function Navigation() {
                 SST
               </Button>
             </Link>
+            <Link href="/billing">
+              <Button 
+                variant={isActive('/billing') ? 'default' : 'ghost'}
+                className={cn(isActive('/billing') && 'bg-blue-600 text-white hover:bg-blue-700')}
+              >
+                Billing
+              </Button>
+            </Link>
             <Link href="/settings">
               <Button 
                 variant={isActive('/settings') ? 'outline' : 'outline'}
