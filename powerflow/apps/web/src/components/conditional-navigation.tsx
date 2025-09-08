@@ -10,7 +10,11 @@ export function ConditionalNavigation() {
   const showUserNavigation = !pathname.startsWith('/admin') && pathname !== '/login'
   
   if (!showUserNavigation) {
-    return null
+    return (
+      <div className="min-h-screen">
+        {/* No navigation for login/admin pages */}
+      </div>
+    )
   }
   
   return (
