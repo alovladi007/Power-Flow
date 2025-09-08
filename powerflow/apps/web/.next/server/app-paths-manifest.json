@@ -3,6 +3,7 @@
   "/simulations/page": "app/simulations/page.js",
   "/settings/page": "app/settings/page.js",
   "/login/page": "app/login/page.js",
-  "/admin/billing/page": "app/admin/billing/page.js",
-  "/admin/system/page": "app/admin/system/page.js"
+  "/admin/dashboard/page": "app/admin/dashboard/page.js",
+  "/admin/organizations/page": "app/admin/organizations/page.js",
+  "/admin/users/page": "app/admin/users/page.js"
 }
