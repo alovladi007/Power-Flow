@@ -1,22 +1,46 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
+import { useRouter } from 'next/navigation'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
 import { Switch } from '@/components/ui/switch'
 import { Badge } from '@/components/ui/badge'
-import { Settings, User, Shield, Bell, Monitor, Database } from 'lucide-react'
+import { Input } from '@/components/ui/input'
+import { Settings, User, Shield, Bell, Monitor, Database, LogOut, Mail, Building2 } from 'lucide-react'
+
+interface UserData {
+  id: string
+  email: string
+  name: string
+  role: 'user' | 'admin'
+  organization?: string
+}
 
 export default function SettingsPage() {
+  const [user, setUser] = useState<UserData | null>(null)
   const [notifications, setNotifications] = useState({
     email: true,
     push: false,
     system: true,
     maintenance: true
   })
-
   const [theme, setTheme] = useState('light')
+  const router = useRouter()
+
+  useEffect(() => {
+    // Get current user from localStorage
+    const userData = localStorage.getItem('user')
+    if (userData) {
+      setUser(JSON.parse(userData))
+    }
+  }, [])
+
+  const handleLogout = () => {
+    localStorage.removeItem('user')
+    router.push('/login')
+  }
 
   return (
     <div className="container mx-auto px-4 py-8">
@@ -27,11 +51,108 @@ export default function SettingsPage() {
 
       <Tabs defaultValue="general" className="space-y-4">
         <TabsList>
+          <TabsTrigger value="account">Account</TabsTrigger>
           <TabsTrigger value="general">General</TabsTrigger>
           <TabsTrigger value="notifications">Notifications</TabsTrigger>
           <TabsTrigger value="security">Security</TabsTrigger>
           <TabsTrigger value="system">System</TabsTrigger>
         </TabsList>
+
+        <TabsContent value="account" className="space-y-4">
+          <Card>
+            <CardHeader>
+              <CardTitle className="flex items-center space-x-2">
+                <User className="h-5 w-5" />
+                <span>Account Information</span>
+              </CardTitle>
+              <CardDescription>Your current account details and session</CardDescription>
+            </CardHeader>
+            <CardContent className="space-y-6">
+              {user ? (
+                <>
+                  <div className="flex items-center space-x-4 p-4 border rounded-lg bg-gray-50">
+                    <div className="w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center">
+                      <User className="h-6 w-6 text-blue-600" />
+                    </div>
+                    <div className="flex-1">
+                      <div className="font-medium text-lg">{user.name}</div>
+                      <div className="text-sm text-muted-foreground flex items-center mt-1">
+                        <Mail className="h-3 w-3 mr-1" />
+                        {user.email}
+                      </div>
+                      {user.organization && (
+                        <div className="text-sm text-muted-foreground flex items-center mt-1">
+                          <Building2 className="h-3 w-3 mr-1" />
+                          {user.organization}
+                        </div>
+                      )}
+                    </div>
+                    <div>
+                      <Badge variant={user.role === 'admin' ? 'destructive' : 'default'}>
+                        {user.role.toUpperCase()}
+                      </Badge>
+                    </div>
+                  </div>
+
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div>
+                      <label className="text-sm font-medium">Full Name</label>
+                      <Input
+                        type="text"
+                        className="mt-1"
+                        defaultValue={user.name}
+                      />
+                    </div>
+                    <div>
+                      <label className="text-sm font-medium">Email Address</label>
+                      <Input
+                        type="email"
+                        className="mt-1"
+                        defaultValue={user.email}
+                        readOnly
+                      />
+                    </div>
+                  </div>
+                  
+                  {user.organization && (
+                    <div>
+                      <label className="text-sm font-medium">Organization</label>
+                      <Input
+                        type="text"
+                        className="mt-1"
+                        defaultValue={user.organization}
+                        readOnly
+                      />
+                    </div>
+                  )}
+
+                  <div className="flex justify-between items-center pt-4 border-t">
+                    <div>
+                      <Button>Update Profile</Button>
+                      <Button variant="outline" className="ml-2">Change Password</Button>
+                    </div>
+                    <Button 
+                      variant="destructive" 
+                      onClick={handleLogout}
+                      className="flex items-center"
+                    >
+                      <LogOut className="h-4 w-4 mr-2" />
+                      Sign Out
+                    </Button>
+                  </div>
+                </>
+              ) : (
+                <div className="text-center py-8">
+                  <User className="h-12 w-12 text-gray-400 mx-auto mb-4" />
+                  <p className="text-gray-500 mb-4">Please log in to view account information</p>
+                  <Button onClick={() => router.push('/login')}>
+                    Sign In
+                  </Button>
+                </div>
+              )}
+            </CardContent>
+          </Card>
+        </TabsContent>
 
         <TabsContent value="general" className="space-y-4">
           <Card>
@@ -43,31 +164,11 @@ export default function SettingsPage() {
               <CardDescription>Manage your profile and personal preferences</CardDescription>
             </CardHeader>
             <CardContent className="space-y-6">
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                <div>
-                  <label className="text-sm font-medium">Full Name</label>
-                  <input
-                    type="text"
-                    className="w-full mt-1 px-3 py-2 border rounded-md"
-                    defaultValue="John Doe"
-                  />
-                </div>
-                <div>
-                  <label className="text-sm font-medium">Email Address</label>
-                  <input
-                    type="email"
-                    className="w-full mt-1 px-3 py-2 border rounded-md"
-                    defaultValue="john.doe@example.com"
-                  />
-                </div>
-              </div>
-              <div>
-                <label className="text-sm font-medium">Organization</label>
-                <input
-                  type="text"
-                  className="w-full mt-1 px-3 py-2 border rounded-md"
-                  defaultValue="PowerFlow Technologies"
-                />
+              <div className="text-center py-8">
+                <div className="text-gray-500 mb-4">User profile settings are now in the Account tab</div>
+                <Button variant="outline" onClick={() => document.querySelector('[value="account"]')?.click()}>
+                  Go to Account Settings
+                </Button>
               </div>
               <Button>Update Profile</Button>
             </CardContent>

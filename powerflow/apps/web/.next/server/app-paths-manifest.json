@@ -1,10 +1,7 @@
 {
   "/dashboard/page": "app/dashboard/page.js",
   "/simulations/page": "app/simulations/page.js",
-  "/sst/page": "app/sst/page.js",
-  "/billing/page": "app/billing/page.js",
   "/settings/page": "app/settings/page.js",
-  "/admin/organizations/page": "app/admin/organizations/page.js",
   "/admin/billing/page": "app/admin/billing/page.js",
   "/admin/system/page": "app/admin/system/page.js"
 }
