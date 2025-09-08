@@ -1,8 +1,10 @@
 {
-  "/not-found": "app/not-found.js",
   "/settings/page": "app/settings/page.js",
   "/dashboard/page": "app/dashboard/page.js",
-  "/login/page": "app/login/page.js",
+  "/simulations/page": "app/simulations/page.js",
+  "/hardware/page": "app/hardware/page.js",
+  "/analytics/page": "app/analytics/page.js",
+  "/billing/page": "app/billing/page.js",
   "/admin/organizations/page": "app/admin/organizations/page.js",
   "/admin/billing/page": "app/admin/billing/page.js",
   "/admin/system/page": "app/admin/system/page.js"
