@@ -55,6 +55,14 @@ export function Navigation() {
                 Analytics
               </Button>
             </Link>
+            <Link href="/sst">
+              <Button 
+                variant={isActive('/sst') ? 'default' : 'ghost'}
+                className={cn(isActive('/sst') && 'bg-blue-600 text-white hover:bg-blue-700')}
+              >
+                SST
+              </Button>
+            </Link>
             <Link href="/settings">
               <Button 
                 variant={isActive('/settings') ? 'outline' : 'outline'}
