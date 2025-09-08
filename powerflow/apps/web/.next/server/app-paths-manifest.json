@@ -2,6 +2,7 @@
   "/dashboard/page": "app/dashboard/page.js",
   "/simulations/page": "app/simulations/page.js",
   "/settings/page": "app/settings/page.js",
+  "/login/page": "app/login/page.js",
   "/admin/billing/page": "app/admin/billing/page.js",
   "/admin/system/page": "app/admin/system/page.js"
 }
