@@ -4,6 +4,7 @@
   "/analytics/page": "app/analytics/page.js",
   "/sst/page": "app/sst/page.js",
   "/settings/page": "app/settings/page.js",
+  "/page": "app/page.js",
   "/admin/page": "app/admin/page.js",
   "/admin/dashboard/page": "app/admin/dashboard/page.js"
 }

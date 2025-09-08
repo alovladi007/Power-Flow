@@ -81,6 +81,14 @@ export function Navigation() {
               </Button>
             </Link>
           </nav>
+          
+          <div className="flex items-center space-x-2">
+            <Link href="/admin">
+              <Button variant="outline" size="sm" className="border-red-200 text-red-600 hover:bg-red-50">
+                Admin Console
+              </Button>
+            </Link>
+          </div>
         </div>
       </div>
     </header>
